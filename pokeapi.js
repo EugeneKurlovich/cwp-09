@@ -36,3 +36,18 @@ Promise.any([
 }).catch((error) => {
     console.error(error);
 });    
+
+Promise.props({
+    pokemons: axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=10`),
+    items: axios.get(`https://pokeapi.co/api/v2/item/?limit=10`),
+    locations: axios.get(`https://pokeapi.co/api/v2/location/?limit=10`)
+}).then((result) => {
+    Object.values(result).forEach((prop) => {
+        prop.data.results.forEach((val) => {
+            console.log(val.name);
+        });
+        console.log('------------------\n');
+    })
+}).catch((error) => {
+    console.error(error);
+});
