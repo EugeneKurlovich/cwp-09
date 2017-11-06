@@ -26,3 +26,13 @@ Promise.all(requests)
     .catch((err) => {
         console.error(err);
     });
+
+Promise.any([
+    axios.get('http://pokeapi.co/api/v2/pokemon/1'),
+    axios.get('http://pokeapi.co/api/v2/pokemon/4'),
+    axios.get('http://pokeapi.co/api/v2/pokemon/7'),
+]).then((value) => {
+    console.log("из [1, 4, 7] первым был: " + value.data.name);
+}).catch((error) => {
+    console.error(error);
+});    
