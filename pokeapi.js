@@ -51,3 +51,11 @@ Promise.props({
 }).catch((error) => {
     console.error(error);
 });
+
+Promise.map([1, 2, 3, 4], (id) => {
+    return axios.get(`https://pokeapi.co/api/v2/berry/${id}`);
+}).then((result) => {
+    result.forEach((val) => {
+        console.log(val.data.name);
+    });
+});
