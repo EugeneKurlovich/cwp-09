@@ -3,9 +3,10 @@ const axios = require('axios');
 
 axios.get('http://pokeapi.co/api/v2/pokemon/42')
     .then(function (response) {
+        console.log("42 pokemon");
         console.log(`name: ${response.data.name}, weight: ${response.data.weight}, height: ${response.data.height}`);
+        console.log('------------------------');
     });
-
 
 let requests = [];
 
@@ -13,6 +14,7 @@ for (let i = 0; i < 3; i++)
 {
     requests.push(axios.get(`http://pokeapi.co/api/v2/pokemon/?limit=10`));
 }
+
 
 Promise.all(requests)
     .then((results) => {
@@ -27,6 +29,7 @@ Promise.all(requests)
         console.error(err);
     });
 
+
 Promise.any([
     axios.get('http://pokeapi.co/api/v2/pokemon/1'),
     axios.get('http://pokeapi.co/api/v2/pokemon/4'),
@@ -36,6 +39,8 @@ Promise.any([
 }).catch((error) => {
     console.error(error);
 });    
+
+
 
 Promise.props({
     pokemons: axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=10`),
@@ -52,7 +57,8 @@ Promise.props({
     console.error(error);
 });
 
-Promise.map([1, 2, 3, 4], (id) => {
+
+Promise.map([1, 2, 3, 4], (id) => { 
     return axios.get(`https://pokeapi.co/api/v2/berry/${id}`);
 }).then((result) => {
     result.forEach((val) => {
