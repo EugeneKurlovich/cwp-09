@@ -1,6 +1,8 @@
 const Promise = require('bluebird');
 const axios = require('axios');
 
+
+
 axios.get('http://pokeapi.co/api/v2/pokemon/42')
     .then(function (response) {
         console.log("42 pokemon");
@@ -8,15 +10,15 @@ axios.get('http://pokeapi.co/api/v2/pokemon/42')
         console.log('------------------------');
     });
 
-let requests = [];
 
-for (let i = 0; i < 3; i++) 
-{
-    requests.push(axios.get(`http://pokeapi.co/api/v2/pokemon/?limit=10`));
-}
+    let pokemons = [];
+    
+    for (let i = 0; i < 3; i++) 
+    {
+        pokemons.push(axios.get("http://pokeapi.co/api/v2/pokemon/?limit=10&offset=" + i * 10));
+    }
 
-
-Promise.all(requests)
+Promise.all(pokemons)
     .then((results) => {
         results.forEach((val, resInd) => {
             val.data.results.forEach((pokemon, ind) => {
